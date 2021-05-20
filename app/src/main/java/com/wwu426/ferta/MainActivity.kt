@@ -1,9 +1,19 @@
 package com.wwu426.ferta
 
+import android.content.ClipDescription
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import java.util.*
+
+class Task {
+    lateinit var name: String
+    lateinit var dueDate: Date
+    lateinit var tag: String
+    lateinit var description: String
+    lateinit var sessions: Date
+}
 
 class MainActivity : AppCompatActivity() {
 
