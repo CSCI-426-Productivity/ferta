@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
             fragmentManager?.beginTransaction()?.replace(
                 R.id.auth_fragment,
                 SignUpFragment(),
-                "tag"
+                "signupFrag"
             )?.commit()
         }
 
