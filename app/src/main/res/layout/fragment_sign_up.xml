@@ -6,16 +6,77 @@
     android:orientation="vertical"
     tools:context=".SignUpFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="signup fragment" />
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/sign_up_fragment" />
+
+    <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:hint="@string/email_address"
+            android:inputType="textEmailAddress"
+            android:importantForAutofill="no" />
+
+    <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:importantForAutofill="no" />
+
+    <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:importantForAutofill="no" />
 
     <Button
-        android:id="@+id/finish_signup_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Up" />
+            android:id="@+id/finish_signup_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/sign_up" />
 
+    <View
+            android:layout_width="100dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="41dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/blue_700" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/already_user" />
+
+    <Button
+            android:id="@+id/signup_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/login"
+            android:textColor="@color/blue_500"
+            android:backgroundTint="@color/white" />
 </LinearLayout>

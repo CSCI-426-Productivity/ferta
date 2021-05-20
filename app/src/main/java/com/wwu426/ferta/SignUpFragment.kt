@@ -42,6 +42,14 @@ class SignUpFragment : Fragment() {
             startActivity(Intent(context, SetupActivity::class.java))
         }
 
+        layout.findViewById<Button>(R.id.signup_back_button).setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(
+                R.id.auth_fragment,
+                LoginFragment(),
+                "loginFrag"
+            )?.commit()
+        }
+
         return layout
     }
 

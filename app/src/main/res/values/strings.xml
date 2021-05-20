@@ -2,4 +2,14 @@
     <string name="app_name">FERTA</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_fragment">Login to your FERTA account</string>
+    <string name="sign_up_fragment">Sign up for your FERTA account</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="new_user">New User?</string>
+    <string name="go_back">Go Back</string>
+    <string name="already_user">Already a user?</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
