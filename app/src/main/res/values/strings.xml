@@ -12,4 +12,27 @@
     <string name="go_back">Go Back</string>
     <string name="already_user">Already a user?</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="specific_desc">Clear, narrow, and understandable to be effective</string>
+    <string name="specific_title">Specific?</string>
+    <string name="measurable_title">Measurable?</string>
+    <string name="measureable_desc">Proof you\&apos;re making progress, with values</string>
+    <string name="attainable_title">Attainable?</string>
+    <string name="attainable_desc">Reasonably achievable in a certain time frame</string>
+    <string name="relevant_title">Relevant?</string>
+    <string name="relevent_desc">Aligns with your values and long-term goals</string>
+    <string name="time_based_title">Time-Based?</string>
+    <string name="time_based_desc">Realistic and ambitious end-date to motivate task completion</string>
+    <string name="next">Next</string>
+    <string name="task_name_title">Task Name</string>
+    <string name="time_needed_for_completion">Time needed for completion</string>
+    <string name="end_date_title">End date</string>
+    <string name="repeat_event">Repeat event?</string>
+    <string name="can_cause_conflict">Can cause conflict?</string>
+    <string name="add">Add</string>
+    <string name="send_notification">Send notification?</string>
+
+    <string-array name="hour_minute_array">
+        <item>Minutes</item>
+        <item>Hours</item>
+    </string-array>
 </resources>
