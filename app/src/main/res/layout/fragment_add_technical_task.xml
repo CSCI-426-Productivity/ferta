@@ -88,7 +88,8 @@
                     android:background="@drawable/enter_text_box_background"
                     android:padding="5dp"
                     android:ems="10"
-                    android:id="@+id/time_needed_for_completion_text_box" />
+                    android:id="@+id/time_needed_for_completion_text_box"
+                    android:textAlignment="textEnd" />
 
             <Spinner
                     android:layout_width="wrap_content"
@@ -167,12 +168,12 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
 
             <Button
-                    android:text="Cancel"
+                    android:text="@string/back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/cancel_task_finish_button"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/red"
+                    android:textColor="@color/blue_500"
+                    android:backgroundTint="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>

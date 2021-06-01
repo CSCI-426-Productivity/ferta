@@ -1,37 +1,22 @@
 package com.wwu426.ferta
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AddSmartTaskFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddSmartTaskFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private lateinit var specificTextEditText : EditText
+    private lateinit var isMeasureableCheckBox : CheckBox
+    private lateinit var isAttainableCheckBox : CheckBox
+    private lateinit var isRelevantCheckBox : CheckBox
+    private lateinit var dateTextView : TextView
+    private val addTaskViewModel : AddTaskViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -41,44 +26,60 @@ class AddSmartTaskFragment : Fragment() {
         // Inflate the layout for this fragment
         val layout = inflater.inflate(R.layout.fragment_add_smart_task, container, false)
 
+        // get views from layout
+        specificTextEditText = layout.findViewById(R.id.specific_edit_text)
+        isMeasureableCheckBox = layout.findViewById(R.id.measureable_checkBox)
+        isAttainableCheckBox = layout.findViewById(R.id.attainable_checkBox)
+        isRelevantCheckBox = layout.findViewById(R.id.relevent_checkBox)
+        dateTextView = layout.findViewById(R.id.end_date_tv)
+
+        // add listeners to some views
         layout.findViewById<TextView>(R.id.end_date_tv).setOnClickListener {
-            Toast.makeText(activity!!.applicationContext, "TODO: make this actually work", Toast.LENGTH_SHORT).show()
-            val newFragment = DatePickerFragment()
-            newFragment.show(fragmentManager!!, "endTaskDatePicker")
+            val newFragment = DatePickerFragment() { date ->
+                // Do something with the date chosen by the user
+                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = date
+                dateTextView.text = date
+            }
+            newFragment.show(requireFragmentManager(), "endTaskDatePicker")
         }
-
         layout.findViewById<Button>(R.id.cancel_task_finish_button).setOnClickListener {
-            Toast.makeText(activity!!.applicationContext, "TODO: cancel", Toast.LENGTH_SHORT).show()
+            requireActivity().finish()
         }
-
         layout.findViewById<Button>(R.id.add_task_next_button).setOnClickListener {
+            // go to next setup page
             fragmentManager?.beginTransaction()?.replace(
                 R.id.add_task_fragment,
                 AddTechnicalTaskFragment(),
                 ""
-            )?.commit()
+            )?.addToBackStack(null)?.commit()
         }
+
+        // save state in view model
+        addTaskViewModel.state = AddTaskViewModel.State.onAddSMART
 
         return layout
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddSmartTaskFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddSmartTaskFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onStart() {
+        super.onStart()
+
+        // update UI from view model
+        specificTextEditText.setText(addTaskViewModel.task.description)
+        isMeasureableCheckBox.isChecked = addTaskViewModel.isMeasureable
+        isAttainableCheckBox.isChecked = addTaskViewModel.isAttainable
+        isRelevantCheckBox.isChecked = addTaskViewModel.isRelevant
+        dateTextView.text = addTaskViewModel.task.dueDate
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+
+        // update view model from UI
+        addTaskViewModel.task.description = specificTextEditText.text.toString()
+        addTaskViewModel.isMeasureable = isMeasureableCheckBox.isChecked
+        addTaskViewModel.isAttainable = isAttainableCheckBox.isChecked
+        addTaskViewModel.isRelevant = isRelevantCheckBox.isChecked
+        addTaskViewModel.task.dueDate = dateTextView.text.toString()
     }
 }

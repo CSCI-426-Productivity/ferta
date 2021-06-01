@@ -5,10 +5,75 @@
         android:layout_height="match_parent"
         tools:context=".NotificationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="TODO: make notification layout" />
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+        <TextView
+                android:text="@string/notification_dialog_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/notification_dialog_title"
+                android:textColor="@color/black" />
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/notifications_ll">
+
+                <com.wwu426.ferta.EditNotificationLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+                android:text="add notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:id="@+id/notification_dialog_add_button"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/blue_500" />
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <Button
+                    android:text="@string/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/notification_dialog_cancel_button"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/red" />
+
+            <Button
+                    android:text="@string/confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/notification_dialog_confirm_button"
+                    android:textColor="@color/blue_500"
+                    android:backgroundTint="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

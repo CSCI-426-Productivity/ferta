@@ -4,29 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 
 class NotificationFragment :  DialogFragment() {
-    fun newInstance(): RepeatFragment? {
-        return RepeatFragment()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Pick a style based on the num.
-        var style = STYLE_NORMAL
-        setStyle(style, theme)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val v: View = inflater.inflate(R.layout.fragment_notification, container, false)
-        //val tv: View = v.findViewById(R.id.text)
-        //(tv as TextView).text = "a different howdy"
+    ): View {
+        val layout: View = inflater.inflate(R.layout.fragment_notification, container, false)
 
-        return v
+        layout.findViewById<Button>(R.id.notification_dialog_cancel_button).setOnClickListener {
+            dismiss()
+        }
+        layout.findViewById<Button>(R.id.notification_dialog_confirm_button).setOnClickListener {
+            Toast.makeText(context, "TODO: use results", Toast.LENGTH_SHORT).show()
+            dismiss()
+        }
+        layout.findViewById<Button>(R.id.notification_dialog_add_button).setOnClickListener {
+            if(layout.findViewById<LinearLayout>(R.id.notifications_ll).childCount >= 5)
+                Toast.makeText(context, "Max notifications", Toast.LENGTH_SHORT).show()
+            else
+                layout.findViewById<LinearLayout>(R.id.notifications_ll).addView( EditNotificationLayout(context!!) )
+        }
+
+        return layout
     }
 }

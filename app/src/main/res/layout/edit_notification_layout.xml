@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="center_horizontal">
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:text="5"
+            android:inputType="number"
+            android:background="@drawable/enter_text_box_background"
+            android:padding="5dp"
+            android:ems="10"
+            android:id="@+id/add_notification_text_box"
+            android:textAlignment="textEnd"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor" />
+
+    <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_notification_spinner"
+            android:layout_weight="0.25"
+            android:entries="@array/hour_minute_array" />
+</LinearLayout>

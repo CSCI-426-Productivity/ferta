@@ -1,37 +1,30 @@
 package com.wwu426.ferta
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.Toast
-import java.nio.Buffer
+import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddTechnicalTaskFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddTechnicalTaskFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private lateinit var nameEditText : EditText
+    private lateinit var tagsEditText : EditText
+    private lateinit var timeNeededEditText : EditText
+    private lateinit var repeatCheckBox : CheckBox
+    private lateinit var canConflictCheckBox : CheckBox
+    private lateinit var sendNotifCheckBox : CheckBox
+    private lateinit var endDateTextView : TextView
+    private lateinit var useHoursSpinner : Spinner
+
+    private val addTaskViewModel : AddTaskViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -41,52 +34,108 @@ class AddTechnicalTaskFragment : Fragment() {
         // Inflate the layout for this fragment
         val layout = inflater.inflate(R.layout.fragment_add_technical_task, container, false)
 
-        val c1 = layout.findViewById<CheckBox>(R.id.repeat_event_checkBox)
-        c1.setOnClickListener {
-            if(c1.isChecked)
-                RepeatFragment().show(fragmentManager!!, "f1")
-        }
+        // get views from layout
+        nameEditText = layout.findViewById(R.id.task_name_edit_text)
+        tagsEditText = layout.findViewById(R.id.tags_edit_text)
+        timeNeededEditText = layout.findViewById(R.id.time_needed_for_completion_text_box)
+        repeatCheckBox = layout.findViewById(R.id.repeat_event_checkBox)
+        canConflictCheckBox = layout.findViewById(R.id.can_cause_conflict_checkBox)
+        sendNotifCheckBox = layout.findViewById(R.id.send_notification_checkBox)
+        endDateTextView = layout.findViewById(R.id.end_date_tv2)
+        useHoursSpinner = layout.findViewById(R.id.time_needed_for_completion_spinner)
 
+        // add listeners to some views
+        repeatCheckBox.setOnClickListener {
+            if(repeatCheckBox.isChecked) {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "TODO: do something with this",
+                    Toast.LENGTH_SHORT
+                ).show()
+                RepeatFragment().show(requireFragmentManager(), "f1")
+            }
+        }
+        useHoursSpinner.onItemSelectedListener =
+            object : OnItemSelectedListener {
+                override fun onItemSelected( parentView: AdapterView<*>?, selectedItemView: View, position: Int,  id: Long ) {
+                    addTaskViewModel.task_time_in_hours = position == 1
+                }
+
+                override fun onNothingSelected(parentView: AdapterView<*>?) {
+                    // your code here
+                }
+            }
         layout.findViewById<TextView>(R.id.end_date_tv2).setOnClickListener {
-            Toast.makeText(activity!!.applicationContext, "TODO: make this actually work", Toast.LENGTH_SHORT).show()
-            val newFragment = DatePickerFragment()
-            newFragment.show(fragmentManager!!, "endTaskDatePicker")
+            val newFragment = DatePickerFragment() { date ->
+                // Do something with the date chosen by the user
+                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = date
+                endDateTextView.text = date
+            }
+            newFragment.show(requireFragmentManager(), "endTaskDatePicker")
         }
-
-        val c2 = layout.findViewById<CheckBox>(R.id.send_notification_checkBox)
-        c2.setOnClickListener {
-            if(c2.isChecked)
-                NotificationFragment().show(fragmentManager!!, "f2")
+        sendNotifCheckBox.setOnClickListener {
+            if(sendNotifCheckBox.isChecked) {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "TODO: do something with this",
+                    Toast.LENGTH_SHORT
+                ).show()
+                NotificationFragment().show(requireFragmentManager(), "f2")
+            }
         }
-
         layout.findViewById<Button>(R.id.cancel_task_finish_button).setOnClickListener {
-            Toast.makeText(activity!!.applicationContext, "TODO: cancel", Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack()
+        }
+        layout.findViewById<Button>(R.id.add_task_finish_button).setOnClickListener {
+
+            updateFromUI()
+            requireActivity().setResult(RESULT_OK, Intent().apply {
+                putExtra(
+                    "task",
+                    addTaskViewModel.task
+                )
+            })
+            requireActivity().finish()
         }
 
-        layout.findViewById<Button>(R.id.add_task_finish_button).setOnClickListener {
-            Toast.makeText(activity!!.applicationContext, "TODO: add and go back to home", Toast.LENGTH_SHORT).show()
-        }
+        // save state in view model
+        addTaskViewModel.state = AddTaskViewModel.State.onAddTaskViewModel
 
         return layout
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddTechnicalTaskFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddTechnicalTaskFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onStart() {
+        super.onStart()
+
+        if (addTaskViewModel.task_time_in_hours)
+            useHoursSpinner.setSelection(1)
+        else
+            useHoursSpinner.setSelection(0)
+
+        // update UI from view model
+        nameEditText.setText(addTaskViewModel.task.name)
+        tagsEditText.setText(
+            addTaskViewModel.task.tags.toString().replace("[", "").replace("]", "")
+        )
+        timeNeededEditText.setText(addTaskViewModel.task_time_needed)
+        repeatCheckBox.isChecked = addTaskViewModel.task_repeat
+        canConflictCheckBox.isChecked = addTaskViewModel.task_can_conflict
+        sendNotifCheckBox.isChecked = addTaskViewModel.task_send_notif
+        endDateTextView.text = addTaskViewModel.task.dueDate
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        updateFromUI()
+    }
+    private fun updateFromUI () {
+        addTaskViewModel.task.name = nameEditText.text.toString()
+        addTaskViewModel.task.tags = tagsEditText.text.toString().split(",|(, )").toMutableList()
+        addTaskViewModel.task_time_needed = timeNeededEditText.text.toString()
+        addTaskViewModel.task_repeat = repeatCheckBox.isChecked
+        addTaskViewModel.task_can_conflict = canConflictCheckBox.isChecked
+        addTaskViewModel.task_send_notif = sendNotifCheckBox.isChecked
+        addTaskViewModel.task.dueDate = endDateTextView.text.toString()
     }
 }

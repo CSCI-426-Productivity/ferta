@@ -133,7 +133,7 @@
                 android:textColor="@color/black"  />
 
         <TextView
-                android:text="04/01/2021 @ 4:20 PM"
+                android:text="04/01/2021"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"

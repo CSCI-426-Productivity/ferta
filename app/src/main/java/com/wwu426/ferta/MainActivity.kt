@@ -1,21 +1,27 @@
 package com.wwu426.ferta
 
-import android.content.ClipDescription
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-class Task {
-    lateinit var name: String
-    lateinit var dueDate: Date
-    lateinit var tag: String
-    lateinit var description: String
-    lateinit var sessions: Date
-}
+@Parcelize
+data class Task (
+    var name: String,
+    var dueDate: String,
+    var tags: MutableList<String>,
+    var notificationsBefore: MutableList<String>,
+    var description: String,
+    var sessions: Date?
+) : Parcelable
 
 class MainActivity : AppCompatActivity() {
+
+    private val RC_ADD_TASK = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +38,15 @@ class MainActivity : AppCompatActivity() {
         if(view.id == R.id.button3)
             supportFragmentManager.beginTransaction().replace(R.id.main_fragment, CalendarFragment(), "tag").commit()
         if(view.id == R.id.button4)
-            startActivity(Intent(applicationContext, AddTaskActivity::class.java))
+            startActivityForResult(Intent(applicationContext, AddTaskActivity::class.java), RC_ADD_TASK)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == RC_ADD_TASK && resultCode == RESULT_OK) {
+            val newTask = data!!.getParcelableExtra<Task>("task")
+            Toast.makeText(applicationContext, "In MainActivity, got new task: ${newTask!!.name}, ${newTask.description}, ${newTask.dueDate}, ${newTask.tags}", Toast.LENGTH_LONG).show()
+        }
     }
 }

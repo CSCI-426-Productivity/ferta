@@ -5,10 +5,54 @@
         android:layout_height="match_parent"
         tools:context=".RepeatFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TODO: make repeat layout" />
+            android:layout_margin="10dp">
+
+        <TextView
+                android:text="@string/repeat_dialog_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/repeat_dialog_title"
+                android:textColor="@color/black" />
+
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/when_repeat_spinner"
+                android:layout_gravity="center_horizontal"
+                android:entries="@array/when_repeat_array" />
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            <Button
+                    android:text="@string/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/repeat_dialog_cancel_button"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/red" />
+
+            <Button
+                    android:text="@string/confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/repeat_dialog_confirm_button"
+                    android:textColor="@color/blue_500"
+                    android:backgroundTint="@color/white" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>
