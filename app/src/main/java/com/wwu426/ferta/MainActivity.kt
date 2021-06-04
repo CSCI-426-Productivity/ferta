@@ -6,6 +6,7 @@ import android.os.Parcelable
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -46,7 +47,8 @@ class MainActivity : AppCompatActivity() {
 
         if(requestCode == RC_ADD_TASK && resultCode == RESULT_OK) {
             val newTask = data!!.getParcelableExtra<Task>("task")
-            Toast.makeText(applicationContext, "In MainActivity, got new task: ${newTask!!.name}, ${newTask.description}, ${newTask.dueDate}, ${newTask.tags}", Toast.LENGTH_LONG).show()
+            ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks.add(newTask!!)
+            //Toast.makeText(applicationContext, "In MainActivity, got new task: ${newTask!!.name}, ${newTask.description}, ${newTask.dueDate}, ${newTask.tags}", Toast.LENGTH_LONG).show()
         }
     }
 }
