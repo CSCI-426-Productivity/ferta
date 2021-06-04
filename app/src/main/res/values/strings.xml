@@ -35,6 +35,23 @@
     <string name="confirm">Confirm</string>
     <string name="repeat_dialog_title">When to repeat task</string>
     <string name="back">Back</string>
+    <string name="initialize_get_setup">Let\'s get started on your Work:Rest ratio</string>
+    <string name="question_current_ratio">What is your current work to rest ratio?</string>
+    <string name="work">Work</string>
+    <string name="rest">Rest</string>
+    <string name="question_current_session_length">How long can you currently work for in a single session?</string>
+    <string name="hint_ratio">Hours</string>
+    <string name="question_target_ratio">What is your target work to rest ratio? (optional)</string>
+    <string name="question_target_session_length">How long is the target length for a single session of work?</string>
+    <string name="unavailable_times">Unavailable Times</string>
+    <string name="unavailable_times_desc">Time ranges that will not be used when creating your schedule</string>
+    <string name="start_colon">Start:</string>
+    <string name="symbol_colon">:</string>
+    <string name="hint_minutes_00">00</string>
+    <string name="hint_hours_12">12</string>
+    <string name="end_colon">End:</string>
+    <string name="button_add_time">+ Add Time</string>
+    <string name="sundays">Sundays</string>
 
     <string-array name="hour_minute_array">
         <item>Minutes</item>
