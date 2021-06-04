@@ -24,10 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     private val RC_ADD_TASK = 1
 
-    companion object {
-        var testTasks = mutableListOf<Task>()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         if(requestCode == RC_ADD_TASK && resultCode == RESULT_OK) {
             val newTask = data!!.getParcelableExtra<Task>("task")
             ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks.add(newTask!!)
-            testTasks.add(newTask)
             //Toast.makeText(applicationContext, "In MainActivity, got new task: ${newTask!!.name}, ${newTask.description}, ${newTask.dueDate}, ${newTask.tags}", Toast.LENGTH_LONG).show()
         }
     }

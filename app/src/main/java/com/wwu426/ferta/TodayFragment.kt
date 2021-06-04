@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 //=================== RECYCLER STUFF =========================
 
-var tag = "DAILY"
+var dtag = "DAILY"
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var contentContainer: LinearLayout = view.findViewById(R.id.task_container)
     var taskItem: TextView = view.findViewById(R.id.task_name)
@@ -21,7 +21,7 @@ class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     init {
         contentContainer.setOnClickListener {
-            Log.d(tag, "Clicked on an item")
+            Log.d(dtag, "Clicked on an item")
         }
     }
 }
@@ -64,17 +64,11 @@ class TodayFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var taskList = ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks
-        Log.d(tag, "clicked on today")
-        Log.d(tag, taskList.size.toString())
-//        Log.d(tag, ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks[0].name)
-        if (ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks.size > 0) {
-            Log.d(tag, ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks[0].name)
-        }
-
-        var tasks = MainActivity.testTasks
-        if (tasks.size > 0) {
-            Log.d(tag, tasks[0].name)
+        var taskList = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks
+        Log.d(dtag, "clicked on today")
+        Log.d(dtag, taskList.size.toString())
+        if (taskList.size > 0) {
+            Log.d(dtag, taskList[0].name)
         }
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
