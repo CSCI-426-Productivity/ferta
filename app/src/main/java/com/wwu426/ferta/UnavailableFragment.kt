@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewDebug
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +37,17 @@ class UnavailableFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_unavailable, container, false)
+        val layout = inflater.inflate(R.layout.fragment_unavailable, container, false)
+        val sundayAddButton: Button = layout.findViewById(R.id.button_sunday_add_time)
+        sundayAddButton.setOnClickListener {
+
+        }
+
+        val recyclerViewSunday: RecyclerView = layout.findViewById(R.id.unavailable_sundays_recycler)
+        recyclerViewSunday.adapter = UnavailableTimeAdapter(Weekday.SUNDAY)
+//        recyclerViewSunday.setLayoutManager(RecyclerView.LayoutManager)
+
+        return layout
     }
 
     companion object {

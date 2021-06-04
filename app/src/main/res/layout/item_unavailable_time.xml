@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+        android:baselineAligned="false">
+
+    <LinearLayout
+            android:id="@+id/layout_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_colon"
+                android:layout_gravity="center"
+                />
+
+        <EditText
+                android:id="@+id/start_hour_number"
+                android:layout_width="36sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:inputType="number"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:importantForAutofill="no"
+                android:hint="@string/hint_hours_12"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="2dp"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text="@string/symbol_colon"/>
+
+        <EditText
+                android:id="@+id/start_minute_number"
+                android:layout_width="36sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:inputType="number"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:importantForAutofill="no"
+                android:hint="@string/hint_minutes_00"/>
+
+        <ToggleButton
+                android:id="@+id/start_toggle_ampm"
+                android:layout_width="30dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="5dp"
+                android:gravity="center"
+                style="@style/toggleButton"
+                android:background="@drawable/ic_toggle_ampm"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/layout_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/end_colon"
+                android:layout_gravity="center"
+                />
+
+        <EditText
+                android:id="@+id/end_hour_number"
+                android:layout_width="36sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:inputType="number"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:importantForAutofill="no"
+                android:hint="@string/hint_hours_12"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="2dp"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text="@string/symbol_colon"/>
+
+        <EditText
+                android:id="@+id/end_minute_number"
+                android:layout_width="36sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:inputType="number"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:importantForAutofill="no"
+                android:hint="@string/hint_minutes_00"/>
+
+        <ToggleButton
+                android:id="@+id/end_toggle_ampm"
+                android:layout_width="30dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="5dp"
+                android:gravity="center"
+                style="@style/toggleButton"
+                android:background="@drawable/ic_toggle_ampm"/>
+
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+</LinearLayout>

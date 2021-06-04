@@ -1,10 +1,50 @@
 package com.wwu426.ferta
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+
+//=================== RECYCLER STUFF =========================
+
+var tag = "DAILY"
+class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    var contentContainer: LinearLayout = view.findViewById(R.id.task_container)
+    var taskItem: TextView = view.findViewById(R.id.task_name)
+    var taskTime: TextView = view.findViewById(R.id.task_time)
+
+    init {
+        contentContainer.setOnClickListener {
+            Log.d(tag, "Clicked on an item")
+        }
+    }
+}
+
+//Model that adapts the list of items to the recycler view
+class MyListAdapter : RecyclerView.Adapter<ViewHolder>() {
+    //Tell it how many items are in the list
+    override fun getItemCount(): Int {
+        return 100
+    }
+
+    // Called when recycler view decides it needs a viewholder to hold items on the screen
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_today_list, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.taskItem.text = position.toString()
+        holder.taskTime.text = position.toString()
+    }
+}
+
+//=================== FRAGMENT STUFF =========================
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
