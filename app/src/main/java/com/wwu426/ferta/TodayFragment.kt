@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 
 //=================== RECYCLER STUFF =========================
@@ -63,6 +64,18 @@ class TodayFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var taskList = ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks
+        Log.d(tag, "clicked on today")
+        Log.d(tag, taskList.size.toString())
+//        Log.d(tag, ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks[0].name)
+        if (ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks.size > 0) {
+            Log.d(tag, ViewModelProvider(this).get(MainActivityViewModel::class.java).tasks[0].name)
+        }
+
+        var tasks = MainActivity.testTasks
+        if (tasks.size > 0) {
+            Log.d(tag, tasks[0].name)
+        }
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
