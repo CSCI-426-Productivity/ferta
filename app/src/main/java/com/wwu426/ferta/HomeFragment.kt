@@ -1,13 +1,55 @@
 package com.wwu426.ferta
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
+var htag = "HOME"
+
+//====================== FRAGMENT STUFF =======================
+
+class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    var contentContainer: LinearLayout = view.findViewById(R.id.task_container_home)
+    var taskName: TextView = view.findViewById(R.id.task_name_home)
+    var taskDueDate: TextView = view.findViewById(R.id.task_due_date)
+
+    init {
+        contentContainer.setOnClickListener {
+            Log.d(htag, "Clicked on an item")
+        }
+    }
+}
+
+//Model that adapts the list of items to the recycler view
+class HomeListAdapter(val taskList: MutableList<Task>) : RecyclerView.Adapter<HomeViewHolder>() {
+    //Tell it how many items are in the list
+    override fun getItemCount(): Int {
+        return taskList.size
+    }
+
+    // Called when recycler view decides it needs a viewholder to hold items on the screen
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_home_list, parent, false)
+        return HomeViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        if (taskList.size > 0) {
+            holder.taskName.text = taskList[position].name
+        }
+    }
+}
+
+//====================== FRAGMENT STUFF =======================
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -36,9 +78,13 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        Toast.makeText(context, "tasks: ${ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks}", Toast.LENGTH_SHORT).show()
-
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        //Toast.makeText(context, "tasks: ${ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks}", Toast.LENGTH_SHORT).show()
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        var recyclerList: RecyclerView = view.findViewById(R.id.home_list)
+        var taskList = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks
+        recyclerList.adapter = HomeListAdapter(taskList)
+        recyclerList.layoutManager = LinearLayoutManager(requireContext())
+        return view
     }
 
     companion object {
@@ -61,3 +107,4 @@ class HomeFragment : Fragment() {
             }
     }
 }
+

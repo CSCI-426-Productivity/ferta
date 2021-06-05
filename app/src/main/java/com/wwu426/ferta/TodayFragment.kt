@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 //=================== RECYCLER STUFF =========================
 
 var dtag = "DAILY"
-class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    var contentContainer: LinearLayout = view.findViewById(R.id.task_container)
-    var taskName: TextView = view.findViewById(R.id.task_name)
+class DailyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    var contentContainer: LinearLayout = view.findViewById(R.id.task_container_daily)
+    var taskName: TextView = view.findViewById(R.id.task_name_today)
     var taskTime: TextView = view.findViewById(R.id.task_time)
 
     init {
@@ -28,19 +28,19 @@ class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 }
 
 //Model that adapts the list of items to the recycler view
-class MyListAdapter(val taskList: MutableList<Task>) : RecyclerView.Adapter<ViewHolder>() {
+class DailyListAdapter(val taskList: MutableList<Task>) : RecyclerView.Adapter<DailyViewHolder>() {
     //Tell it how many items are in the list
     override fun getItemCount(): Int {
         return taskList.size
     }
 
     // Called when recycler view decides it needs a viewholder to hold items on the screen
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_today_list, parent, false)
-        return ViewHolder(view)
+        return DailyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
         if (taskList.size > 0) {
             holder.taskName.text = taskList[position].name
         }
@@ -86,7 +86,7 @@ class TodayFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_today, container, false)
         var taskList = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks
         var recyclerList: RecyclerView = view.findViewById(R.id.today_list)
-        recyclerList.adapter = MyListAdapter(taskList)
+        recyclerList.adapter = DailyListAdapter(taskList)
         recyclerList.layoutManager = LinearLayoutManager(requireContext())
 
         return view
