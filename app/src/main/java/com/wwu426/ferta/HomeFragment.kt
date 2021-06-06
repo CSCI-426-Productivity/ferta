@@ -1,5 +1,6 @@
 package com.wwu426.ferta
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,17 +16,16 @@ import androidx.recyclerview.widget.RecyclerView
 
 var htag = "HOME"
 
-//====================== FRAGMENT STUFF =======================
+//====================== RECYCLER STUFF =======================
 
 class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var contentContainer: LinearLayout = view.findViewById(R.id.task_container_home)
     var taskName: TextView = view.findViewById(R.id.task_name_home)
     var taskDueDate: TextView = view.findViewById(R.id.task_due_date)
+    val view = view
 
     init {
-        contentContainer.setOnClickListener {
-            Log.d(htag, "Clicked on an item")
-        }
+
     }
 }
 
@@ -44,8 +44,19 @@ class HomeListAdapter(val taskList: MutableList<Task>) : RecyclerView.Adapter<Ho
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         if (taskList.size > 0) {
+            val description = taskList[position].description
             holder.taskName.text = taskList[position].name
             holder.taskDueDate.text = taskList[position].dueDate
+            holder.contentContainer.setOnClickListener {
+                Log.d(htag, "Clicked on an item $position")
+                val intent = Intent(holder.view.context, TaskDetails::class.java)
+                with (intent) {
+                    putExtra("NAME", holder.taskName.text.toString())
+                    putExtra("DATE", holder.taskDueDate.text.toString())
+                    putExtra("DESCRIPTION", description)
+                    holder.view.context.startActivity(this)
+                }
+            }
         }
     }
 }
