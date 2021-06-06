@@ -45,6 +45,7 @@ class HomeListAdapter(val taskList: MutableList<Task>) : RecyclerView.Adapter<Ho
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         if (taskList.size > 0) {
             holder.taskName.text = taskList[position].name
+            holder.taskDueDate.text = taskList[position].dueDate
         }
     }
 }
