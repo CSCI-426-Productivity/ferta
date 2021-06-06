@@ -3,25 +3,11 @@ package com.wwu426.ferta
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.wwu426.ferta.Meridiem
+import com.wwu426.ferta.Weekday
 import java.time.LocalTime
 
-class UnavailableTime {
-
-    constructor()
-
-    private val TAG: String = "UNTIME"
-
-    // VARIABLES
-    var weekday : Weekday = Weekday.SUNDAY
-    // Start times of unavailability
-    @RequiresApi(Build.VERSION_CODES.O)
-    var startTime : LocalTime = LocalTime.MIN
-    var startMeridiem = Meridiem.AM
-    // End times of unavailability
-    @RequiresApi(Build.VERSION_CODES.O)
-    var endTime : LocalTime = LocalTime.MAX
-    var endMeridiem = Meridiem.PM
-
+data class UnavailableTime(var weekday: Weekday, var startTime: LocalTime, var endTime: LocalTime) {
 
     // SETTERS
     @RequiresApi(Build.VERSION_CODES.O)
@@ -31,13 +17,6 @@ class UnavailableTime {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun setStartTimeHours(hours : Int) {
-        if (hours in 12..23) {
-            startMeridiem = Meridiem.PM
-        } else if (hours in 0..11) {
-            startMeridiem = Meridiem.AM
-        } else {
-            Log.e(TAG, "setStartTimeHours: Hour '$hours' is out of range (0-23)")
-        }
         startTime = startTime.withHour(hours)
     }
 
@@ -48,13 +27,6 @@ class UnavailableTime {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun setEndTimeHours(hours : Int) {
-        if (hours in 12..23) {
-            endMeridiem = Meridiem.PM
-        } else if (hours in 0..11) {
-            endMeridiem = Meridiem.AM
-        } else {
-            Log.e(TAG, "setStartTimeHours: Hour '$hours' is out of range (0-23)")
-        }
         endTime = endTime.withHour(hours)
     }
 
@@ -70,10 +42,6 @@ class UnavailableTime {
         return startTime.minute.toString()
     }
 
-    fun getStartMeridiem() : Boolean {
-        return startMeridiem == Meridiem.PM
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun getTextEndTimeHours() : String {
         return endTime.hour.toString()
@@ -82,10 +50,6 @@ class UnavailableTime {
     @RequiresApi(Build.VERSION_CODES.O)
     fun getTextEndTimeMinutes() : String {
         return endTime.minute.toString()
-    }
-
-    fun getEndMeridiem() : Boolean {
-        return endMeridiem == Meridiem.PM
     }
 
 }

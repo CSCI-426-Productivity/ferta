@@ -4,10 +4,17 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewDebug
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ToggleButton
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.time.LocalTime
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +37,9 @@ class UnavailableFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        unavailableViewModel = ViewModelProvider(this).get(UnavailableViewModel::class.java)
+        rvAdapter = UnavailableTimeAdapter(unavailableViewModel.getUnavailableTimes())
     }
 
     override fun onCreateView(
@@ -43,9 +53,14 @@ class UnavailableFragment : Fragment() {
 
         }
 
-        val recyclerViewSunday: RecyclerView = layout.findViewById(R.id.unavailable_sundays_recycler)
-        recyclerViewSunday.adapter = UnavailableTimeAdapter(Weekday.SUNDAY)
-//        recyclerViewSunday.setLayoutManager(RecyclerView.LayoutManager)
+        rvSunday = layout.findViewById(R.id.unavailable_sundays_recycler)
+        rvSunday.layoutManager = LinearLayoutManager(context)
+        rvSunday.adapter = rvAdapter
+
+        sundayAddButton.setOnClickListener {
+            unavailableViewModel.addUnavailableTime(UnavailableTime(Weekday.SUNDAY, LocalTime.MIN, LocalTime.MAX))
+            rvAdapter.notifyDataSetChanged()
+        }
 
         return layout
     }
