@@ -149,7 +149,7 @@ class AddTechnicalTaskFragment : Fragment() {
         repeatCheckBox.isChecked = addTaskViewModel.task_repeat
         canConflictCheckBox.isChecked = addTaskViewModel.task_can_conflict
         sendNotifCheckBox.isChecked = addTaskViewModel.task_send_notif
-        endDateTextView.text = addTaskViewModel.task.dueDate.toString()
+        endDateTextView.text = addTaskViewModel.task.dueDate
     }
 
     override fun onStop() {
@@ -164,6 +164,6 @@ class AddTechnicalTaskFragment : Fragment() {
         addTaskViewModel.task_repeat = repeatCheckBox.isChecked
         addTaskViewModel.task_can_conflict = canConflictCheckBox.isChecked
         addTaskViewModel.task_send_notif = sendNotifCheckBox.isChecked
-        //addTaskViewModel.task.dueDate = endDateTextView.text.toString()
+        addTaskViewModel.task.dueDate = endDateTextView.text.toString()
     }
 }

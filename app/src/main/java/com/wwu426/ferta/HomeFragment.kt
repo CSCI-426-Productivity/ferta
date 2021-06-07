@@ -1,5 +1,6 @@
 package com.wwu426.ferta
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 var htag = "HOME"
 
@@ -60,30 +63,15 @@ class HomeListAdapter(val taskList: MutableList<Task>) : RecyclerView.Adapter<Ho
     }
 }
 
-//====================== FRAGMENT STUFF =======================
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
     private lateinit var adapter: HomeListAdapter
+    private lateinit var dateTV : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = HomeListAdapter(ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -93,35 +81,20 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         //Toast.makeText(context, "tasks: ${ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks}", Toast.LENGTH_SHORT).show()
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+        dateTV = view.findViewById(R.id.text_welcome)
         var recyclerList: RecyclerView = view.findViewById(R.id.home_list)
         recyclerList.adapter = adapter
         recyclerList.layoutManager = LinearLayoutManager(requireContext())
         return view
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            dateTV.text = "Welcome back!\n${LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy"))}"
+        }
         adapter.notifyDataSetChanged()
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
 
