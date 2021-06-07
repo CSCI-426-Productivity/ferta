@@ -1,10 +1,14 @@
 package com.wwu426.ferta
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 
+val tdtag = "TASK_DETAILS"
 class TaskDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +24,13 @@ class TaskDetails : AppCompatActivity() {
         val taskName = intent.getStringExtra("NAME")
         val taskDueDate = intent.getStringExtra("DATE")
         val taskDescription = intent.getStringExtra("DESCRIPTION")
+        val position = intent.getIntExtra("INDEX", -1)
 
         taskNameTV.text = taskName
         taskDueDateTV.text = "Task: $taskDueDate"
         taskDescriptionTV.text = "Description: \n\n$taskDescription"
 
-
+        //deletes the task from the list
         deleteButton.setOnClickListener {
             finish()
         }

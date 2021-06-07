@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
 
     private val RC_ADD_TASK = 1
 
+    companion object {
+        val activity = this
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

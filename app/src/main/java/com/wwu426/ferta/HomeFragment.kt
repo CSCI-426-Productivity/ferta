@@ -23,10 +23,6 @@ class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var taskName: TextView = view.findViewById(R.id.task_name_home)
     var taskDueDate: TextView = view.findViewById(R.id.task_due_date)
     val view = view
-
-    init {
-
-    }
 }
 
 //Model that adapts the list of items to the recycler view
@@ -43,6 +39,8 @@ class HomeListAdapter(val taskList: MutableList<Task>) : RecyclerView.Adapter<Ho
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        // Need to check size or the app crashes. Opens new activity
+        // displaying details when clicked on
         if (taskList.size > 0) {
             val description = taskList[position].description
             holder.taskName.text = taskList[position].name
@@ -54,6 +52,7 @@ class HomeListAdapter(val taskList: MutableList<Task>) : RecyclerView.Adapter<Ho
                     putExtra("NAME", holder.taskName.text.toString())
                     putExtra("DATE", holder.taskDueDate.text.toString())
                     putExtra("DESCRIPTION", description)
+                    putExtra("INDEX", position)
                     holder.view.context.startActivity(this)
                 }
             }
