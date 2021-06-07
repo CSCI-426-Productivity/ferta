@@ -16,7 +16,7 @@ import java.util.*
 @Parcelize
 data class Task (
     var name: String,
-    var dueDate: Date,
+    var dueDate: String,
     var tags: MutableList<String>,
     var notificationsBefore: MutableList<String>,
     var description: String,

@@ -46,7 +46,7 @@ class AddSmartTaskFragment : Fragment() {
         layout.findViewById<LinearLayout>(R.id.end_task_button).setOnClickListener {
             val newFragment = DatePickerFragment() { date ->
                 // Do something with the date chosen by the user
-                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = SimpleDateFormat("MM/dd/yyyy").parse(date)!!
+                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = date
                 dateTextView.text = date
             }
             newFragment.show(requireFragmentManager(), "endTaskDatePicker")
@@ -68,7 +68,7 @@ class AddSmartTaskFragment : Fragment() {
                 if(specificTextEditText.text.isBlank())
                     Toast.makeText(context, "Please enter a specific description", Toast.LENGTH_SHORT).show()
                 else
-                    Toast.makeText(context, "Please confirm M A & R", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Please confirm M, A & R", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -87,7 +87,7 @@ class AddSmartTaskFragment : Fragment() {
         isMeasureableCheckBox.isChecked = addTaskViewModel.isMeasureable
         isAttainableCheckBox.isChecked = addTaskViewModel.isAttainable
         isRelevantCheckBox.isChecked = addTaskViewModel.isRelevant
-        //dateTextView.text = SimpleDateFormat("MM/dd/yyyy").format(addTaskViewModel.task.dueDate.toString()) // TODO: convert to proper formatted string
+        dateTextView.text = addTaskViewModel.task.dueDate.toString()
     }
 
     override fun onStop() {
@@ -99,6 +99,6 @@ class AddSmartTaskFragment : Fragment() {
         addTaskViewModel.isMeasureable = isMeasureableCheckBox.isChecked
         addTaskViewModel.isAttainable = isAttainableCheckBox.isChecked
         addTaskViewModel.isRelevant = isRelevantCheckBox.isChecked
-        addTaskViewModel.task.dueDate = SimpleDateFormat("MM/dd/yyyy").parse(dateTextView.text.toString())!!
+        addTaskViewModel.task.dueDate = dateTextView.text.toString()
     }
 }

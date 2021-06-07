@@ -25,7 +25,7 @@ class AddTaskViewModel : ViewModel() {
     // task details
     val task : Task by lazy {
         Task("",
-            Calendar.getInstance().time,
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy")),
             mutableListOf(),
             mutableListOf(),
             "",

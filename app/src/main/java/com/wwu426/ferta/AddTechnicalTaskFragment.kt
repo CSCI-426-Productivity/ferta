@@ -80,7 +80,7 @@ class AddTechnicalTaskFragment : Fragment() {
         layout.findViewById<TextView>(R.id.end_date_tv2).setOnClickListener {
             val newFragment = DatePickerFragment() { date ->
                 // Do something with the date chosen by the user
-                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = SimpleDateFormat("MM/dd/yyyy").parse(date)!!
+                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = date
                 endDateTextView.text = date
             }
             newFragment.show(requireFragmentManager(), "endTaskDatePicker")

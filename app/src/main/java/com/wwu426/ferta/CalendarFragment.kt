@@ -46,8 +46,8 @@ class CalendarFragment : Fragment() {
 
         compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY)
 
-        for(task in viewModel.tasks)
-            compactCalendarView.addEvent(Event(Color.GREEN, task.dueDate.time, task.name))
+        //for(task in viewModel.tasks)
+        //    compactCalendarView.addEvent(Event(Color.GREEN, task.dueDate, task.name))
 
         showMonthName(Calendar.getInstance().time)
 

@@ -27,6 +27,6 @@ class DatePickerFragment(var onComplete: (date: String) -> Unit) : DialogFragmen
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        onComplete("$day-$month-$year")
+        onComplete("${month+1}/$day/$year")
     }
 }
