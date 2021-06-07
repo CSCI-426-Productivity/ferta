@@ -75,9 +75,11 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var adapter: HomeListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adapter = HomeListAdapter(ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -92,10 +94,14 @@ class HomeFragment : Fragment() {
         //Toast.makeText(context, "tasks: ${ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks}", Toast.LENGTH_SHORT).show()
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         var recyclerList: RecyclerView = view.findViewById(R.id.home_list)
-        var taskList = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks
-        recyclerList.adapter = HomeListAdapter(taskList)
+        recyclerList.adapter = adapter
         recyclerList.layoutManager = LinearLayoutManager(requireContext())
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.notifyDataSetChanged()
     }
 
     companion object {
