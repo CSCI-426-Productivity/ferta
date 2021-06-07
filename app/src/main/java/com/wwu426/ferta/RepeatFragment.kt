@@ -20,7 +20,7 @@ class RepeatFragment :  DialogFragment() {
             dismiss()
         }
         layout.findViewById<Button>(R.id.repeat_dialog_confirm_button).setOnClickListener {
-            Toast.makeText(context, "TODO: use results", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "TODO: use results", Toast.LENGTH_SHORT).show()
             dismiss()
         }
 

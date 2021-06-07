@@ -21,7 +21,7 @@ class NotificationFragment :  DialogFragment() {
             dismiss()
         }
         layout.findViewById<Button>(R.id.notification_dialog_confirm_button).setOnClickListener {
-            Toast.makeText(context, "TODO: use results", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "TODO: use results", Toast.LENGTH_SHORT).show()
             dismiss()
         }
         layout.findViewById<Button>(R.id.notification_dialog_add_button).setOnClickListener {
