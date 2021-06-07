@@ -65,6 +65,7 @@
     <string name="_2">2</string>
     <string name="_1">1</string>
     <string name="_60">60</string>
+    <string name="del">DEL</string>
 
     <string-array name="hour_minute_array">
         <item>Minutes</item>

@@ -1,5 +1,6 @@
 package com.wwu426.ferta
 
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
@@ -25,6 +27,8 @@ private const val ARG_PARAM2 = "param2"
 // RecyclerView
 class UnavailableTimeAdapter(private val unavailableTimesList: MutableList<UnavailableTime>) : RecyclerView.Adapter<UnavailableTimeAdapter.UnavailableViewHolder>() {
 
+    var isUpdated: Boolean = true
+
     class UnavailableViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var editStartHours = view.findViewById<EditText>(R.id.start_hour_number)
         var editStartMinutes = view.findViewById<EditText>(R.id.start_minute_number)
@@ -32,6 +36,7 @@ class UnavailableTimeAdapter(private val unavailableTimesList: MutableList<Unava
         var editEndHours = view.findViewById<EditText>(R.id.end_hour_number)
         var editEndMinutes = view.findViewById<EditText>(R.id.end_minute_number)
         var toggleEndMeridiem = view.findViewById<ToggleButton>(R.id.end_toggle_ampm)
+        var buttonDelete = view.findViewById<ImageButton>(R.id.delete_button)
 
         init {
 
@@ -49,6 +54,7 @@ class UnavailableTimeAdapter(private val unavailableTimesList: MutableList<Unava
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: UnavailableViewHolder, position: Int) {
+
         var startHours = unavailableTimesList[position].startTime.hour
         var endHours = unavailableTimesList[position].endTime.hour
 
@@ -66,6 +72,11 @@ class UnavailableTimeAdapter(private val unavailableTimesList: MutableList<Unava
         holder.editEndHours.setText(endHours.toString())
         holder.editStartMinutes.setText(unavailableTimesList[position].startTime.minute.toString())
         holder.editEndMinutes.setText(unavailableTimesList[position].endTime.minute.toString())
+
+        holder.buttonDelete.setOnClickListener{
+            unavailableTimesList.removeAt(position)
+            this.notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int {
