@@ -10,6 +10,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DatePickerFragment(var onComplete: (date: String) -> Unit) : DialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -26,6 +27,6 @@ class DatePickerFragment(var onComplete: (date: String) -> Unit) : DialogFragmen
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        onComplete("$month/$day/$year")
+        onComplete("$day-$month-$year")
     }
 }

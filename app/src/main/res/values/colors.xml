@@ -9,6 +9,9 @@
     <color name="gray">#FF999999</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="nav_unselected_background">#00FFFFFF</color>
+    <color name="nav_selected_background">#77FFFFFF</color>
+
     <color name="blue_200">#FF81D4FA</color>
     <color name="blue_500">#FF03A9F4</color>
     <color name="blue_700">#FF0288D1</color>

@@ -12,7 +12,8 @@
         <activity android:name=".TaskDetails"></activity>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".SetupActivity" />
-        <activity android:name=".AddTaskActivity" />
+        <activity android:name=".AddTaskActivity"
+                android:label="Add a SMART task"/>
         <activity android:name=".AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

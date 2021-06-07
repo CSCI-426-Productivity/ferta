@@ -1,12 +1,19 @@
 package com.wwu426.ferta
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class AddSmartTaskFragment : Fragment() {
 
@@ -19,6 +26,8 @@ class AddSmartTaskFragment : Fragment() {
         ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java)
     }
 
+    @SuppressLint("SimpleDateFormat")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,10 +43,10 @@ class AddSmartTaskFragment : Fragment() {
         dateTextView = layout.findViewById(R.id.end_date_tv)
 
         // add listeners to some views
-        layout.findViewById<TextView>(R.id.end_date_tv).setOnClickListener {
+        layout.findViewById<LinearLayout>(R.id.end_task_button).setOnClickListener {
             val newFragment = DatePickerFragment() { date ->
                 // Do something with the date chosen by the user
-                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = date
+                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = SimpleDateFormat("MM/dd/yyyy").parse(date)!!
                 dateTextView.text = date
             }
             newFragment.show(requireFragmentManager(), "endTaskDatePicker")
@@ -46,12 +55,22 @@ class AddSmartTaskFragment : Fragment() {
             requireActivity().finish()
         }
         layout.findViewById<Button>(R.id.add_task_next_button).setOnClickListener {
-            // go to next setup page
-            fragmentManager?.beginTransaction()?.replace(
-                R.id.add_task_fragment,
-                AddTechnicalTaskFragment(),
-                ""
-            )?.addToBackStack(null)?.commit()
+
+            if(isMeasureableCheckBox.isChecked && isAttainableCheckBox.isChecked && isRelevantCheckBox.isChecked
+                && specificTextEditText.text.isNotBlank()) {
+                // go to next setup page
+                fragmentManager?.beginTransaction()?.setCustomAnimations(
+                    R.anim.slide_in_left, R.anim.slide_out_right)?.replace(R.id.add_task_fragment,
+                    AddTechnicalTaskFragment(),
+                    ""
+                )?.addToBackStack(null)?.commit()
+            } else {
+                if(specificTextEditText.text.isBlank())
+                    Toast.makeText(context, "Please enter a specific description", Toast.LENGTH_SHORT).show()
+                else
+                    Toast.makeText(context, "Please confirm M A & R", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         // save state in view model
@@ -68,7 +87,7 @@ class AddSmartTaskFragment : Fragment() {
         isMeasureableCheckBox.isChecked = addTaskViewModel.isMeasureable
         isAttainableCheckBox.isChecked = addTaskViewModel.isAttainable
         isRelevantCheckBox.isChecked = addTaskViewModel.isRelevant
-        dateTextView.text = addTaskViewModel.task.dueDate
+        //dateTextView.text = SimpleDateFormat("MM/dd/yyyy").format(addTaskViewModel.task.dueDate.toString()) // TODO: convert to proper formatted string
     }
 
     override fun onStop() {
@@ -80,6 +99,6 @@ class AddSmartTaskFragment : Fragment() {
         addTaskViewModel.isMeasureable = isMeasureableCheckBox.isChecked
         addTaskViewModel.isAttainable = isAttainableCheckBox.isChecked
         addTaskViewModel.isRelevant = isRelevantCheckBox.isChecked
-        addTaskViewModel.task.dueDate = dateTextView.text.toString()
+        addTaskViewModel.task.dueDate = SimpleDateFormat("MM/dd/yyyy").parse(dateTextView.text.toString())!!
     }
 }

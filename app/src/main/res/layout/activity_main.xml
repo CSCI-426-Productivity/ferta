@@ -20,6 +20,8 @@
 
     <LinearLayout
             android:id="@+id/nav_bar"
+            android:background="@drawable/nav_background"
+            android:layout_margin="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,37 +29,48 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-                android:text="Home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button"
+        <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/nav_home_button"
                 android:layout_weight="1"
-                android:onClick="onClick" />
+                android:onClick="onClick"
+                android:src="@drawable/ic_home"
+                android:background="@color/nav_unselected_background"
+                app:tint="@color/white" />
 
-        <Button
+        <ImageButton
                 android:text="Today"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/nav_today_button"
                 android:layout_weight="1"
-                android:onClick="onClick" />
+                android:onClick="onClick"
+                android:src="@drawable/ic_today"
+                android:background="@color/nav_unselected_background"
+                app:tint="@color/white" />
 
-        <Button
+        <ImageButton
                 android:text="Calendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/nav_calendar_button"
                 android:layout_weight="1"
-                android:onClick="onClick" />
+                android:onClick="onClick"
+                android:src="@drawable/ic_calendar_nav"
+                android:background="@color/nav_unselected_background"
+                app:tint="@color/white"  />
 
-        <Button
+        <ImageButton
                 android:text="Add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/nav_add_button"
                 android:layout_weight="1"
-                android:onClick="onClick" />
+                android:onClick="onClick"
+                android:src="@drawable/ic_add"
+                android:background="@color/nav_unselected_background"
+                app:tint="@color/white" />
 
     </LinearLayout>
 

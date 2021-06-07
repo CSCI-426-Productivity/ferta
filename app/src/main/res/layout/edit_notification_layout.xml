@@ -10,11 +10,11 @@
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.75"
             android:text="5"
             android:inputType="number"
             android:background="@drawable/enter_text_box_background"
             android:padding="5dp"
+            android:layout_weight="1"
             android:ems="10"
             android:id="@+id/add_notification_text_box"
             android:textAlignment="textEnd"
@@ -24,7 +24,16 @@
     <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:id="@+id/add_notification_spinner"
-            android:layout_weight="0.25"
             android:entries="@array/hour_minute_array" />
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/ic_x"
+            android:tint="@color/red"
+            android:layout_weight="1"
+            android:id="@+id/imageView"
+            tools:ignore="VectorDrawableCompat" />
 </LinearLayout>

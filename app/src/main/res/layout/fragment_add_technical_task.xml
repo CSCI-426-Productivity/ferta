@@ -1,183 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".AddTechnicalTaskFragment">
 
-    <LinearLayout
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
-            android:orientation="vertical">
-
-        <TextView
-                android:text="@string/task_name_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:id="@+id/task_name_title"
-                android:textColor="@color/black" />
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="name here"
-                android:padding="5dp"
-                android:layout_margin="5dp"
-                android:ems="10"
-                android:id="@+id/task_name_edit_text"
-                android:background="@drawable/enter_text_box_background" />
-
-        <View
-                android:id="@+id/divider5"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
-
-
-        <TextView
-                android:text="Tags"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:id="@+id/tags_title"
-                android:textColor="@color/black" />
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="tags here"
-                android:padding="5dp"
-                android:layout_margin="5dp"
-                android:ems="10"
-                android:id="@+id/tags_edit_text"
-                android:background="@drawable/enter_text_box_background" />
-
-        <View
-                android:id="@+id/divider6"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
-
-        <TextView
-                android:text="@string/time_needed_for_completion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:id="@+id/time_needed_for_completion_title"
-                android:textColor="@color/black" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/add_tech_nav">
 
         <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal">
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical">
+
+            <TextView
+                    android:text="@string/task_name_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/task_name_title"
+                    android:textColor="?android:attr/textColorPrimary" />
 
             <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:background="@drawable/enter_text_box_background"
-                    android:padding="5dp"
+                    android:inputType="text"
+                    android:hint="name here"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:ems="10"
-                    android:id="@+id/time_needed_for_completion_text_box"
-                    android:textAlignment="textEnd" />
+                    android:id="@+id/task_name_edit_text"
+                    tools:targetApi="lollipop"
+                    android:layout_gravity="center" />
 
-            <Spinner
-                    android:layout_width="wrap_content"
+            <View
+                    android:id="@+id/divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+
+            <TextView
+                    android:text="Tags"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/time_needed_for_completion_spinner"
-                    android:entries="@array/hour_minute_array" />
+                    android:textSize="20sp"
+                    android:id="@+id/tags_title"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="eg. school, csci426"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:id="@+id/tags_edit_text"
+                    android:layout_gravity="center" />
+
+            <View
+                    android:id="@+id/divider6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+            <TextView
+                    android:text="@string/time_needed_for_completion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/time_needed_for_completion_title"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:gravity="center_horizontal">
+
+                <EditText
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/time_needed_for_completion_text_box"
+                        android:textAlignment="textEnd"
+                        android:hint="15" />
+
+                <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/time_needed_for_completion_spinner"
+                        android:entries="@array/hour_minute_array" />
+            </LinearLayout>
+
+            <View
+                    android:id="@+id/divider7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+            <TextView
+                    android:text="@string/end_date_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:id="@+id/end_date_title" />
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@drawable/enter_text_box_background"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:backgroundTint="?android:attr/textColorPrimary"
+                    android:id="@+id/end_task_button2">
+
+                <TextView
+                        android:text="04/01/2021"
+                        android:layout_width="wrap_content"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:layout_height="35dp"
+                        android:padding="5dp"
+                        android:id="@+id/end_date_tv2"
+                        android:textSize="18sp"
+                        android:gravity="center" />
+
+                <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/imageButton"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/ic_calendar"
+                        app:tint="@color/blue_500"
+                        tools:ignore="VectorDrawableCompat" />
+            </LinearLayout>
+
+            <View
+                    android:id="@+id/divider8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+            <CheckBox
+                    android:text="@string/repeat_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/repeat_event_checkBox" />
+
+            <CheckBox
+                    android:text="@string/can_cause_conflict"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/can_cause_conflict_checkBox" />
+
+            <CheckBox
+                    android:text="@string/send_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/send_notification_checkBox" />
+
         </LinearLayout>
+    </ScrollView>
 
-        <View
-                android:id="@+id/divider7"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/add_tech_nav">
 
-        <TextView
-                android:text="@string/end_date_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:id="@+id/end_date_title"
-                android:textColor="@color/black" />
-
-        <TextView
-                android:text="04/01/2021 @ 4:20 PM"
+        <Button
+                android:text="@string/add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_gravity="center"
-                android:id="@+id/end_date_tv2"
-                android:background="@drawable/enter_text_box_background"
-                android:textSize="14sp"
-                android:layout_margin="10dp"
-                android:textColor="@color/black" />
+                android:id="@+id/add_task_finish_button"
+                android:textColor="@color/blue_500"
+                android:backgroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-        <View
-                android:id="@+id/divider8"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
-
-        <CheckBox
-                android:text="@string/repeat_event"
-                android:layout_width="match_parent"
+        <Button
+                android:text="@string/back"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/repeat_event_checkBox" />
+                android:id="@+id/cancel_task_finish_button"
+                android:textColor="@color/blue_500"
+                android:backgroundTint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <CheckBox
-                android:text="@string/can_cause_conflict"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/can_cause_conflict_checkBox" />
-
-        <CheckBox
-                android:text="@string/send_notification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/send_notification_checkBox" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <Button
-                    android:text="@string/add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/add_task_finish_button"
-                    android:textColor="@color/blue_500"
-                    android:backgroundTint="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-
-            <Button
-                    android:text="@string/back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/cancel_task_finish_button"
-                    android:textColor="@color/blue_500"
-                    android:backgroundTint="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

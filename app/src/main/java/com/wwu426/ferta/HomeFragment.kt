@@ -44,7 +44,7 @@ class HomeListAdapter(val taskList: MutableList<Task>) : RecyclerView.Adapter<Ho
         if (taskList.size > 0) {
             val description = taskList[position].description
             holder.taskName.text = taskList[position].name
-            holder.taskDueDate.text = taskList[position].dueDate
+            holder.taskDueDate.text = taskList[position].dueDate.toString()
             holder.contentContainer.setOnClickListener {
                 Log.d(htag, "Clicked on an item $position")
                 val intent = Intent(holder.view.context, TaskDetails::class.java)

@@ -25,10 +25,15 @@ class NotificationFragment :  DialogFragment() {
             dismiss()
         }
         layout.findViewById<Button>(R.id.notification_dialog_add_button).setOnClickListener {
-            if(layout.findViewById<LinearLayout>(R.id.notifications_ll).childCount >= 5)
-                Toast.makeText(context, "Max notifications", Toast.LENGTH_SHORT).show()
-            else
-                layout.findViewById<LinearLayout>(R.id.notifications_ll).addView( EditNotificationLayout(context!!) )
+
+            layout.findViewById<LinearLayout>(R.id.notifications_ll).addView( EditNotificationLayout(requireContext()) )
+
+            if(layout.findViewById<LinearLayout>(R.id.notifications_ll).childCount >= 5) {
+                layout.findViewById<Button>(R.id.notification_dialog_add_button).visibility = View.GONE
+            }
+            else {
+                layout.findViewById<Button>(R.id.notification_dialog_add_button).visibility = View.VISIBLE
+            }
         }
 
         return layout

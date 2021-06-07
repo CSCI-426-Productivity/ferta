@@ -1,63 +1,69 @@
 package com.wwu426.ferta
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.github.sundeepk.compactcalendarview.CompactCalendarView
+import com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener
+import com.github.sundeepk.compactcalendarview.domain.Event
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CalendarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CalendarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var compactCalendarView : CompactCalendarView
+    lateinit var calendar_month_name_tv : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        Toast.makeText(context, "tasks: ${ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks}", Toast.LENGTH_SHORT).show()
+        val layout = inflater.inflate(R.layout.fragment_calendar, container, false)
 
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        compactCalendarView = layout.findViewById(R.id.compactcalendar_view) as CompactCalendarView
+        calendar_month_name_tv = layout.findViewById(R.id.calendar_month_name_tv)
+
+        return layout
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CalendarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CalendarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    @SuppressLint("SimpleDateFormat")
+    fun showMonthName(date: Date) {
+        calendar_month_name_tv.text = SimpleDateFormat("LLLL yyyy").format(date)
+    }
+
+    override fun onStart() {
+
+        val viewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+
+        compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY)
+
+        for(task in viewModel.tasks)
+            compactCalendarView.addEvent(Event(Color.GREEN, task.dueDate.time, task.name))
+
+        showMonthName(Calendar.getInstance().time)
+
+        // define a listener to receive callbacks when certain events happen.
+        compactCalendarView.setListener(object : CompactCalendarViewListener {
+            override fun onDayClick(dateClicked: Date) {
+                val events = compactCalendarView.getEvents(dateClicked)
+                if(events.isNotEmpty())
+                    Toast.makeText(requireContext(), "Tasks: $events", Toast.LENGTH_SHORT).show()
             }
+
+            override fun onMonthScroll(firstDayOfNewMonth: Date) {
+                showMonthName(firstDayOfNewMonth)
+            }
+        })
+
+        super.onStart()
     }
 }

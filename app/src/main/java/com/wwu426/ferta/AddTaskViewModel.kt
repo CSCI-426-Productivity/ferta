@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 class AddTaskViewModel : ViewModel() {
@@ -24,7 +25,7 @@ class AddTaskViewModel : ViewModel() {
     // task details
     val task : Task by lazy {
         Task("",
-            LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy")),
+            Calendar.getInstance().time,
             mutableListOf(),
             mutableListOf(),
             "",

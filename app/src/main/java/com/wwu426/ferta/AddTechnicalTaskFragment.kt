@@ -2,14 +2,20 @@ package com.wwu426.ferta
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.android.synthetic.main.fragment_add_technical_task.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class AddTechnicalTaskFragment : Fragment() {
@@ -27,6 +33,7 @@ class AddTechnicalTaskFragment : Fragment() {
         ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,7 +64,12 @@ class AddTechnicalTaskFragment : Fragment() {
         }
         useHoursSpinner.onItemSelectedListener =
             object : OnItemSelectedListener {
-                override fun onItemSelected( parentView: AdapterView<*>?, selectedItemView: View, position: Int,  id: Long ) {
+                override fun onItemSelected(
+                    parentView: AdapterView<*>?,
+                    selectedItemView: View,
+                    position: Int,
+                    id: Long
+                ) {
                     addTaskViewModel.task_time_in_hours = position == 1
                 }
 
@@ -68,34 +80,50 @@ class AddTechnicalTaskFragment : Fragment() {
         layout.findViewById<TextView>(R.id.end_date_tv2).setOnClickListener {
             val newFragment = DatePickerFragment() { date ->
                 // Do something with the date chosen by the user
-                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = date
+                ViewModelProvider(requireActivity()).get(AddTaskViewModel::class.java).task.dueDate = SimpleDateFormat("MM/dd/yyyy").parse(date)!!
                 endDateTextView.text = date
             }
             newFragment.show(requireFragmentManager(), "endTaskDatePicker")
         }
         sendNotifCheckBox.setOnClickListener {
-            if(sendNotifCheckBox.isChecked) {
-                Toast.makeText(
-                    requireActivity().applicationContext,
-                    "TODO: do something with this",
-                    Toast.LENGTH_SHORT
-                ).show()
+            if(sendNotifCheckBox.isChecked)
                 NotificationFragment().show(requireFragmentManager(), "f2")
-            }
         }
         layout.findViewById<Button>(R.id.cancel_task_finish_button).setOnClickListener {
-            fragmentManager?.popBackStack()
+            fragmentManager?.beginTransaction()?.setCustomAnimations(
+                R.anim.slide_out_left, R.anim.slide_in_right
+            )?.replace(
+                R.id.add_task_fragment,
+                AddSmartTaskFragment(),
+                ""
+            )?.addToBackStack(null)?.commit()
         }
         layout.findViewById<Button>(R.id.add_task_finish_button).setOnClickListener {
 
-            updateFromUI()
-            requireActivity().setResult(RESULT_OK, Intent().apply {
-                putExtra(
-                    "task",
-                    addTaskViewModel.task
-                )
-            })
-            requireActivity().finish()
+            if(task_name_edit_text.text.isBlank()) {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "Please enter a name",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else if(timeNeededEditText.text.isBlank()) {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "Please enter time needed",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else{
+                updateFromUI()
+                requireActivity().setResult(RESULT_OK, Intent().apply {
+                    putExtra(
+                        "task",
+                        addTaskViewModel.task
+                    )
+                })
+                requireActivity().finish()
+            }
         }
 
         // save state in view model
@@ -121,7 +149,7 @@ class AddTechnicalTaskFragment : Fragment() {
         repeatCheckBox.isChecked = addTaskViewModel.task_repeat
         canConflictCheckBox.isChecked = addTaskViewModel.task_can_conflict
         sendNotifCheckBox.isChecked = addTaskViewModel.task_send_notif
-        endDateTextView.text = addTaskViewModel.task.dueDate
+        endDateTextView.text = addTaskViewModel.task.dueDate.toString()
     }
 
     override fun onStop() {
@@ -136,6 +164,6 @@ class AddTechnicalTaskFragment : Fragment() {
         addTaskViewModel.task_repeat = repeatCheckBox.isChecked
         addTaskViewModel.task_can_conflict = canConflictCheckBox.isChecked
         addTaskViewModel.task_send_notif = sendNotifCheckBox.isChecked
-        addTaskViewModel.task.dueDate = endDateTextView.text.toString()
+        //addTaskViewModel.task.dueDate = endDateTextView.text.toString()
     }
 }
