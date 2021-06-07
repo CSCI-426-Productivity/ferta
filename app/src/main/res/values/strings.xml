@@ -52,6 +52,11 @@
     <string name="end_colon">End:</string>
     <string name="button_add_time">+ Add Time</string>
     <string name="sundays">Sundays</string>
+    <string name="work_rest_ratio">Work to Rest ratio</string>
+    <string name="longest_work_seesion">Longest work session</string>
+    <string name="unavailability">Unavailability</string>
+    <string name="change">Change</string>
+    <string name="settings">Settings</string>
 
     <string-array name="hour_minute_array">
         <item>Minutes</item>

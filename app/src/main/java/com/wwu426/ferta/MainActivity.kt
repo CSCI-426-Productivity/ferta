@@ -3,7 +3,8 @@ package com.wwu426.ferta
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.View
+import android.view.*
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -34,6 +35,24 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().add(R.id.main_fragment, HomeFragment(), "tag").commit()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        return when (item.itemId) {
+            R.id.settings -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+                return true
+            }
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
 
     fun onClick(view : View) {
         if(view.id == R.id.button)
