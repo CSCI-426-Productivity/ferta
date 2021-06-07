@@ -74,10 +74,12 @@ class TodayFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var adapter: DailyListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var taskList = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks
+        adapter = DailyListAdapter(taskList)
         Log.d(dtag, "clicked on today")
         Log.d(dtag, taskList.size.toString())
         if (taskList.size > 0) {
@@ -95,12 +97,16 @@ class TodayFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_today, container, false)
-        var taskList = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java).tasks
         var recyclerList: RecyclerView = view.findViewById(R.id.today_list)
-        recyclerList.adapter = DailyListAdapter(taskList)
+        recyclerList.adapter = adapter
         recyclerList.layoutManager = LinearLayoutManager(requireContext())
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.notifyDataSetChanged()
     }
 
     companion object {

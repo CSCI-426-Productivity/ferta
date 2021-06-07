@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
             R.id.settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
