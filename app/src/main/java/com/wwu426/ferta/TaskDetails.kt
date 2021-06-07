@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 
@@ -25,6 +25,7 @@ class TaskDetails : AppCompatActivity() {
         val taskDescriptionTV: TextView = findViewById(R.id.details_task_description)
         val taskSessionsTV: TextView = findViewById(R.id.details_task_sessions)
         val deleteButton: Button = findViewById(R.id.details_delete_button)
+        val backButton: Button = findViewById(R.id.details_back_button)
 //        val toolbar: Toolbar = findViewById(R.id.toolbar)
 //        toolbar.setNavigationIcon(R.drawable.ic_back_arrow)
 
@@ -43,6 +44,10 @@ class TaskDetails : AppCompatActivity() {
 
         //deletes the task from the list
         deleteButton.setOnClickListener {
+            finish()
+        }
+
+        backButton.setOnClickListener {
             finish()
         }
 

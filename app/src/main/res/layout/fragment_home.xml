@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Welcome Back!&#10;Day, Date"
+            android:text="Welcome Back!"
             android:layout_marginTop="56dp"
             android:layout_marginStart="32dp"
             android:textSize="24sp"
