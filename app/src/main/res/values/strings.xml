@@ -57,6 +57,14 @@
     <string name="unavailability">Unavailability</string>
     <string name="change">Change</string>
     <string name="settings">Settings</string>
+    <string name="display_SMART_goals_screen">Display SMART goals screen</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="notifications">Notifications</string>
+    <string name="notif_alert_time">Notifications Alert Time</string>
+    <string name="logout">Log Out</string>
+    <string name="_2">2</string>
+    <string name="_1">1</string>
+    <string name="_60">60</string>
 
     <string-array name="hour_minute_array">
         <item>Minutes</item>
