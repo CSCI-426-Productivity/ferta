@@ -24,7 +24,8 @@
             android:layout_marginBottom="5dp"
             android:hint="@string/email_address"
             android:inputType="textEmailAddress"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:id="@+id/login_email_et" />
 
     <EditText
             android:layout_width="300dp"
@@ -34,7 +35,8 @@
             android:layout_marginBottom="10dp"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:id="@+id/login_password" />
 
     <Button
             android:id="@+id/login_button"
